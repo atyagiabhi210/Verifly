@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,9 +38,24 @@ export default function Header() {
               >
                 Pricing
               </a>
-              <button className="bg-[var(--neon-green)] text-black px-4 py-2 rounded-lg font-medium hover:bg-[var(--neon-blue)] transition-colors neon-glow">
-                Get Started
-              </button>
+
+              {/* Authentication UI */}
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="bg-[var(--neon-green)] text-black px-4 py-2 rounded-lg font-medium hover:bg-[var(--neon-blue)] transition-colors neon-glow">
+                    Get Started
+                  </button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "h-8 w-8",
+                    },
+                  }}
+                />
+              </SignedIn>
             </div>
           </div>
 
@@ -92,9 +108,28 @@ export default function Header() {
               >
                 Pricing
               </a>
-              <button className="w-full bg-[var(--neon-green)] text-black px-4 py-2 rounded-lg font-medium hover:bg-[var(--neon-blue)] transition-colors mt-2">
-                Get Started
-              </button>
+
+              {/* Mobile Authentication UI */}
+              <SignedOut>
+                <div className="pt-2">
+                  <SignInButton mode="modal">
+                    <button className="w-full bg-[var(--neon-green)] text-black px-4 py-2 rounded-lg font-medium hover:bg-[var(--neon-blue)] transition-colors">
+                      Get Started
+                    </button>
+                  </SignInButton>
+                </div>
+              </SignedOut>
+              <SignedIn>
+                <div className="pt-2 px-3">
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "h-8 w-8",
+                      },
+                    }}
+                  />
+                </div>
+              </SignedIn>
             </div>
           </div>
         )}
